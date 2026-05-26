@@ -1,3 +1,8 @@
+"use client";
+
+import { useRef } from "react";
+import { motion, useInView } from "framer-motion";
+
 const services = [
   {
     label: "Home Loan Offers",
@@ -57,10 +62,21 @@ const services = [
 ];
 
 export default function Services() {
+  const headingRef = useRef(null);
+  const headingInView = useInView(headingRef, { once: true, margin: "-60px" });
+  const ctaRef = useRef(null);
+  const ctaInView = useInView(ctaRef, { once: true, margin: "-40px" });
+
   return (
     <section id="services" aria-labelledby="services-heading" className="bg-gray-50/70 py-20 px-4 sm:px-6 lg:px-8">
       <div className="max-w-5xl mx-auto">
-        <div className="text-center mb-14">
+        <motion.div
+          ref={headingRef}
+          initial={{ opacity: 0, y: 24 }}
+          animate={headingInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
+          className="text-center mb-14"
+        >
           <p className="text-orange-700 text-sm font-semibold mb-3">
             That&apos;s not all, we&apos;re really with you every step of the way
           </p>
@@ -71,28 +87,21 @@ export default function Services() {
             From home loans, legal, taxes, interiors to printing housewarming
             invites — we&apos;ve got you covered.
           </h2>
-        </div>
+        </motion.div>
 
-        <ul
-          role="list"
-          className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4 mb-12"
-        >
-          {services.map((service) => (
-            <li key={service.label}>
-              <div className="bg-white rounded-2xl p-5 flex flex-col items-center gap-3 shadow-sm hover:shadow-md hover:-translate-y-1 transition-all duration-200 cursor-pointer h-full">
-                <div className="text-[#ff6d33]">{service.icon}</div>
-                <p className="text-xs font-semibold text-gray-800 text-center leading-tight">
-                  {service.label}
-                </p>
-                <p className="text-xs text-gray-600 text-center leading-tight hidden sm:block">
-                  {service.description}
-                </p>
-              </div>
-            </li>
+        <ul role="list" className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4 mb-12">
+          {services.map((service, i) => (
+            <ServiceCard key={service.label} service={service} index={i} />
           ))}
         </ul>
 
-        <div className="bg-gradient-to-r from-orange-50 to-amber-50 border border-orange-100 rounded-2xl p-8 flex flex-col sm:flex-row items-center justify-between gap-6">
+        <motion.div
+          ref={ctaRef}
+          initial={{ opacity: 0, y: 24 }}
+          animate={ctaInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
+          className="bg-gradient-to-r from-orange-50 to-amber-50 border border-orange-100 rounded-2xl p-8 flex flex-col sm:flex-row items-center justify-between gap-6"
+        >
           <p className="text-xl font-bold text-gray-900 max-w-md leading-snug text-center sm:text-left">
             All this &amp; a lot more, for your peace of mind.
           </p>
@@ -102,13 +111,32 @@ export default function Services() {
             </span>
             <a
               href="#"
-              className="bg-[#ff6d33] hover:bg-[#e55d27] text-white font-semibold px-6 py-3 rounded-xl transition-colors duration-150 text-center whitespace-nowrap"
+              className="bg-[#ff6d33] hover:bg-[#e55d27] text-white font-semibold px-6 py-3 rounded-xl transition-colors duration-150 text-center whitespace-nowrap cursor-pointer"
             >
               Book An Appointment
             </a>
           </div>
-        </div>
+        </motion.div>
       </div>
     </section>
+  );
+}
+
+function ServiceCard({ service, index }: { service: typeof services[0]; index: number }) {
+  const ref = useRef(null);
+  const inView = useInView(ref, { once: true, margin: "-40px" });
+  return (
+    <motion.li
+      ref={ref}
+      initial={{ opacity: 0, y: 24, scale: 0.95 }}
+      animate={inView ? { opacity: 1, y: 0, scale: 1 } : {}}
+      transition={{ duration: 0.45, delay: index * 0.07, ease: [0.22, 1, 0.36, 1] }}
+    >
+      <div className="bg-white rounded-2xl p-5 flex flex-col items-center gap-3 shadow-sm hover:shadow-md hover:-translate-y-1 transition-all duration-200 cursor-pointer h-full">
+        <div className="text-[#ff6d33]">{service.icon}</div>
+        <p className="text-xs font-semibold text-gray-800 text-center leading-tight">{service.label}</p>
+        <p className="text-xs text-gray-600 text-center leading-tight hidden sm:block">{service.description}</p>
+      </div>
+    </motion.li>
   );
 }

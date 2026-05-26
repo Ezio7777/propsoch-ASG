@@ -1,13 +1,12 @@
+"use client";
+
+import { useRef } from "react";
+import { motion, useInView } from "framer-motion";
+
 const footerColumns = [
   {
     heading: "Top Developers in Bengaluru",
-    links: [
-      "Prestige Developers",
-      "Godrej Properties",
-      "Brigade Developers",
-      "Sobha Developers",
-      "Assetz Developers",
-    ],
+    links: ["Prestige Developers", "Godrej Properties", "Brigade Developers", "Sobha Developers", "Assetz Developers"],
   },
   {
     heading: "Top Areas in Bengaluru",
@@ -15,13 +14,7 @@ const footerColumns = [
   },
   {
     heading: "Top Filters",
-    links: [
-      "Luxury Homes",
-      "Properties <3Cr",
-      "Properties <2Cr",
-      "Ready To Move In",
-      "Townships",
-    ],
+    links: ["Luxury Homes", "Properties <3Cr", "Properties <2Cr", "Ready To Move In", "Townships"],
   },
 ];
 
@@ -65,11 +58,24 @@ const socialLinks = [
 ];
 
 export default function Footer() {
+  const ref = useRef(null);
+  const inView = useInView(ref, { once: true, margin: "-40px" });
+
   return (
-    <footer className="bg-gray-950 text-gray-300">
+    <motion.footer
+      ref={ref}
+      initial={{ opacity: 0 }}
+      animate={inView ? { opacity: 1 } : {}}
+      transition={{ duration: 0.6 }}
+      className="bg-gray-950 text-gray-300 pb-20 md:pb-0"
+    >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-10">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-14">
-          <div className="space-y-5">
+
+        {/* Mobile: stacked, centered. Desktop: 4-col grid */}
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-10 mb-14">
+
+          {/* Brand column */}
+          <div className="flex flex-col items-center text-center md:items-start md:text-left gap-5">
             <div className="flex items-center gap-2">
               <div className="w-8 h-8 bg-[#ff6d33] rounded-lg flex items-center justify-center flex-shrink-0" aria-hidden="true">
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="white">
@@ -80,13 +86,12 @@ export default function Footer() {
               <span className="font-bold text-white text-lg tracking-tight">Propsoch</span>
             </div>
 
-            <p className="text-sm text-gray-400 leading-relaxed">
-              Propsoch is the most advanced real estate research platform for
-              homebuyers in India.
+            <p className="text-sm text-gray-400 leading-relaxed max-w-xs">
+              Propsoch is the most advanced real estate research platform for homebuyers in India.
             </p>
 
             <nav aria-label="Social media links">
-              <ul role="list" className="flex gap-2.5">
+              <ul role="list" className="flex gap-2.5 justify-center md:justify-start">
                 {socialLinks.map((s) => (
                   <li key={s.label}>
                     <a
@@ -103,22 +108,21 @@ export default function Footer() {
               </ul>
             </nav>
 
-            <div className="space-y-1 text-xs text-gray-400 pt-1">
+            <div className="space-y-1 text-xs text-gray-500">
               <p>Thinkr Proptech Private Limited</p>
               <p>RERA: PRM/KA/RERA/1251/446/AG/220927/003103</p>
               <p>GSTIN - 12314ASDAD213 &nbsp;|&nbsp; CIN - 21312215151661</p>
             </div>
           </div>
 
+          {/* Link columns */}
           {footerColumns.map((col) => (
-            <nav key={col.heading} aria-label={col.heading}>
+            <nav key={col.heading} aria-label={col.heading} className="flex flex-col items-center text-center md:items-start md:text-left">
               <h4 className="text-white font-semibold mb-5 text-sm">{col.heading}</h4>
               <ul role="list" className="space-y-3">
                 {col.links.map((linkText) => (
                   <li key={linkText}>
-                    <span className="text-sm text-gray-400 cursor-default">
-                      {linkText}
-                    </span>
+                    <span className="text-sm text-gray-400 cursor-default">{linkText}</span>
                   </li>
                 ))}
               </ul>
@@ -126,14 +130,14 @@ export default function Footer() {
           ))}
         </div>
 
-        <div className="border-t border-gray-800 pt-6 flex flex-col sm:flex-row justify-between items-center gap-4 text-xs text-gray-400">
+        <div className="border-t border-gray-800 pt-6 flex flex-col sm:flex-row justify-between items-center gap-4 text-xs text-gray-500">
           <div className="flex gap-5">
-            <span className="cursor-default">Privacy Policy</span>
-            <span className="cursor-default">Terms &amp; Conditions</span>
+            <span className="cursor-default hover:text-gray-300 transition-colors">Privacy Policy</span>
+            <span className="cursor-default hover:text-gray-300 transition-colors">Terms &amp; Conditions</span>
           </div>
           <p>&copy; Copyright Thinkr Proptech Pvt. Ltd. 2026</p>
         </div>
       </div>
-    </footer>
+    </motion.footer>
   );
 }

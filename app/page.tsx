@@ -10,8 +10,9 @@ export default function Home() {
   return (
     <>
       <Navbar />
-      <main id="main-content">
+      <main id="main-content" className="pb-16 md:pb-0">
         <Hero />
+
         <Stats />
         <Services />
         <Testimonials />

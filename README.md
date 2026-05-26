@@ -1,3 +1,4 @@
+
 # Propsoch — Redesigned Landing Page
 
 > A complete rebuild of the [Propsoch](https://www.propsoch.com/) landing page with measurable improvements in performance, accessibility, UX, and SEO.
@@ -19,21 +20,22 @@ Clicking the search icon on the original site triggers a modal overlay that hija
 
 Replaced the popup entirely with an inline search bar that drops down directly below the navbar when the icon is clicked. It slides in smoothly with a CSS transition so it feels like a natural extension of the header. The input auto-focuses on open and a "Cancel" button on the right collapses it back cleanly. The whole interaction stays within the navbar area — no overlays, no interruptions, no layout shift.
 
-![Search bar expanded](./screenshots/search-bar.png)
+<img width="1244" height="121" alt="Screenshot 2026-05-26 at 2 56 11 PM" src="https://github.com/user-attachments/assets/4f0493f7-bff7-4772-b6d3-4ab0ace87c82" />
 
 ---
 
-### Fix 2 — Testimonials Carousel Felt Laggy
+### Fix 2 — Testimonials Section Redesign
 
 **Problem**
 
-The original testimonials section uses a JavaScript-driven horizontal scroll carousel. On lower-end devices the transitions stutter noticeably — cards snap rather than glide, which undercuts the credibility of the social proof at exactly the wrong moment.
+The original testimonials section used a horizontal carousel that felt laggy and inconsistent. Card heights changed based on content length, making the layout feel unstable and less polished.
 
 **How I Fixed It**
 
-Rebuilt the section with a dark-themed three-column card layout on desktop. Each card has a star rating row, a full quote, and a profile row at the bottom. The active/center card is highlighted with a subtle orange border to draw the eye. Navigation arrows and dot indicators sit below for stepping through additional reviews. The entire section uses CSS transitions only — no scroll listeners, no JavaScript animation frames — so it runs at 60fps on any device.
+Redesigned the section with a premium dark-themed three-card layout. The center testimonial is highlighted as the primary focus, while all cards now maintain equal height for better visual balance. Replaced the heavy carousel behavior with lightweight CSS transitions to achieve smoother performance and a cleaner user experience across devices.
 
-![Testimonials section](./screenshots/testimonials.png)
+<img width="1370" height="793" alt="Screenshot 2026-05-26 at 2 57 06 PM" src="https://github.com/user-attachments/assets/e43dc201-bb09-4746-95d6-112bb47208c1" />
+
 
 ---
 
@@ -47,7 +49,8 @@ On the original site the guided homebuying video shows a thumbnail on desktop bu
 
 Built a proper video card that renders the actual thumbnail image on every device using Next.js `<Image>` with `fill` and `aspect-video` sizing. The card sits to the right of the hero copy on desktop and stacks below it on mobile at full width. A centered play button overlays the thumbnail, and a small floating chip below reads "Watch how it works · 3 min · Free to watch" — adding context that reduces friction before the user even clicks. A green "Live Guidance Available" badge on the top edge reinforces trust.
 
-![Hero with video thumbnail](./screenshots/hero-video.png)
+<img width="292" height="635" alt="Screenshot 2026-05-26 at 2 58 36 PM" src="https://github.com/user-attachments/assets/d505a15f-12b7-4bde-8e29-d692a2c3b17d" />
+
 
 ---
 
@@ -61,7 +64,8 @@ On the original site tapping the hamburger icon causes nav links to appear insta
 
 Replaced the default nav with a bottom-anchored mobile tab bar showing Home, Save, Share, and Menu. Tapping Menu slides up a clean drawer from the bottom with the nav links (Services, Resources, Testimonials) and a full-width Book An Appointment CTA. The drawer animates in with a `translateY` transition and the hamburger icon swaps to an × with the same motion. The search bar on mobile also drops inline below the header rather than opening a popup, keeping the experience consistent across all touch interactions.
 
-![Mobile menu and search](./screenshots/mobile-menu.png)
+<img width="293" height="633" alt="Screenshot 2026-05-26 at 2 59 41 PM" src="https://github.com/user-attachments/assets/ac196276-7b58-478c-bb28-2a009ee1c080" />
+
 
 ---
 
